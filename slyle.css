@@ -1,0 +1,15 @@
+
+.bblock {
+display: table-cell; 
+font-size: 16px;
+width: 100px;
+height: 100px;
+background: gold;
+text-align: center;
+vertical-align: middle;
+}
+.wrap {
+display: table;  
+border-spacing: 10px 10px; 
+background-color: darkgray;
+}

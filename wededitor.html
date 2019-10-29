@@ -1,0 +1,136 @@
+<DOCTYPE html>
+<html lang ="en">
+    <head>
+        <title>WebEditor</title>
+        <style>
+                .small { font: italic 13px sans-serif; }
+                .heavy { font: bold 30px sans-serif; }
+          </style>  
+          <link rel="stylesheet" type="text/css" href="slyle.css"> 
+    </head>
+    <body>
+        <style>
+            #body{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+            #htmleditor{
+                height: 280px;
+                width: 750px;
+                border: 10px;
+                float: left;
+                border-style: solid;
+                border-color: aqua;
+            }
+            #csseditor{
+            height: 280px;
+            border: 10px;
+            border-style: solid;
+            border-color: aqua;
+            }
+            #result{
+                height: 280px;
+                width: 750;
+                float: left;
+                border: 10px;
+                border-style: solid;
+                border-color:cadetblue;
+            }
+            #ideal{
+                height: 280px;
+                border: 10px;
+                border-style: solid;
+                border-color:cadetblue;
+            }
+        </style>
+        <div id="htmleditor"></div>
+        <div id="csseditor" display="none">
+            </div>        
+        <iframe id="result" frameBorder="0"></iframe>
+        <div id = "ideal"> 
+            <div class="wrap">
+                <div class="bblock">Build</div>
+                <div class="bblock">table</div>
+                <div class="bblock">row</div>
+                <div class="bblock">from divs</div>
+            </div>
+        </div>
+    
+        <div class="instraction" >
+                <h2>Задание</h2>
+                <ul>
+                    <li>При помощи html-редактора и css-редактора построить ряд div</li>
+                    <li>Цвета: gold, darkgray</li>
+                    <li>Размеры 16px, 100px, 100px, 10px,10px</li>
+                    <li>Классы дивов: wrap, bblock</li>
+                </ul>
+            </div>
+
+        <script src="asster/js/jquery-3.3.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.6/ace.js" type="text/javascript" charset="utf-8"></script>
+
+        <script>
+            String.prototype.replaceAll = function(search, replacement) {
+                var target = this;
+                return target.split(search).join(replacement);
+            };
+
+            function createElementFromHTML(htmlString) {
+                var div = document.createElement('div');
+                div.innerHTML = htmlString.trim();
+                return div.firstChild; 
+            }
+
+            function update(){
+                var res = document.getElementById('result').contentWindow.document;
+                res.open();
+                res.write(eh.getValue());
+                res.write('<style>'+ec.getValue()+'</style>');
+                res.close();
+
+                var editor = ace.edit("htmleditor");
+                var user_code_element = createElementFromHTML(editor.getSession().getValue());
+                var ideal_code_element = createElementFromHTML(document.getElementById('ideal').innerHTML);
+
+                if (user_code_element.isEqualNode(ideal_code_element)){
+                    res.open();
+                    res.write(eh.getValue()+'<h3>Well done</h3>');
+                    res.write('<style>'+ec.getValue()+'</style>');
+                    res.close();
+                }
+                else{
+                    res.open();
+                    res.write(eh.getValue()+'<h3>Oh....</h3>');
+                    res.write('<style>'+ec.getValue()+'</style>');
+                    res.close();
+                }
+
+            }
+
+            function seteditor(){
+                window.eh = ace.edit("htmleditor");
+                eh.setTheme("ace/theme/monokai");
+                eh.session.setMode("ace/mode/html");
+
+                window.ec = ace.edit("csseditor");
+                ec.setTheme("ace/theme/monokai");
+                ec.session.setMode("ace/mode/css");
+
+                eh.getSession().on('change',function(){
+                    update();
+                });
+
+                ec.getSession().on('change',function(){
+                    update();
+                });
+
+            }     
+            seteditor();
+            update();
+        </script>
+
+
+    </body>
+</html>

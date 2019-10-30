@@ -48,16 +48,15 @@
         <div id="htmleditor"></div>
         <div id="csseditor" display="none">
             </div>        
-        <iframe id="result" frameBorder="0"></iframe>
-        <div id = "ideal"> 
-            <div class="wrap">
-                <div class="bblock">Build</div>
-                <div class="bblock">table</div>
-                <div class="bblock">row</div>
-                <div class="bblock">from divs</div>
-            </div>
-        </div>
-    
+        <iframe id="result" style="border: 1px" frameBorder="0"></iframe>
+<div id = "ideal"> 
+<div class="wrap">
+    <div class="bblock">Build</div>
+    <div class="bblock">table</div>
+    <div class="bblock">row</div>
+    <div class="bblock">from divs</div>
+</div>
+</div>    
         <div class="instraction" >
                 <h2>Задание</h2>
                 <ul>
@@ -96,13 +95,13 @@
 
                 if (user_code_element.isEqualNode(ideal_code_element)){
                     res.open();
-                    res.write(eh.getValue()+'<h3>Well done</h3>');
+                    res.write(eh.getValue()+'<br><h3>Well done</h3>');
                     res.write('<style>'+ec.getValue()+'</style>');
                     res.close();
                 }
                 else{
                     res.open();
-                    res.write(eh.getValue()+'<h3>Oh....</h3>');
+                    res.write(eh.getValue()+'<br><h3>You are doing something wrong</h3>');
                     res.write('<style>'+ec.getValue()+'</style>');
                     res.close();
                 }
